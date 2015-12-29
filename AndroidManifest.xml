@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.floatwindow"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <!-- http://blog.csdn.net/stevenhu_223/article/details/8504058 -->
+    <uses-sdk
+        android:minSdkVersion="12"
+        android:targetSdkVersion="18" >
+    </uses-sdk>
+
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <application
+        android:name="com.example.floatwindow.MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- umeng sdk -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55c99f1667e58e7735003c94" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="individaul_channel" />
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <activity
+            android:name="com.example.floatwindow.MainActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+         以壁纸作为背景无titlebar	@android:style/Theme.Wallpaper.NoTitleBar 
+   有了这东西不会显示到锁屏上      android:theme="@android:style/Theme.Dialog" 
+        -->
+
+        <activity
+            android:name="LockScreenFloatActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar" >
+        </activity>
+
+        <service android:name="FxService" >
+        </service>
+        <service android:name="com.gtss.music.MusicPlayerService" >
+        </service>
+        <!--
+        	This 2 actions must be registered in dynamic code ,such as running Service or running activity
+                <action android:name="android.intent.action.SCREEN_ON" />
+                 <action android:name="android.intent.action.SCREEN_OFF" >
+        -->
+
+        <receiver android:name="com.example.floatwindow.MessageReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
